@@ -8,6 +8,7 @@ import {Tick as TimerTick} from 'ducks/timer'
 import Processes from 'components/Processes'
 import Resources from 'components/Resources'
 import Timer from 'components/Timer'
+import Log from 'components/Log'
 
 class Home extends React.Component {
   constructor (props) {
@@ -49,7 +50,7 @@ class Home extends React.Component {
           col={5}
           p={3}
         >
-          Box auto
+          <Log log={this.props.log} />
         </Box>
       </Flex>
     )
@@ -60,7 +61,8 @@ export default connect(
   (state) => {
     return {
       processes: state.banker.processes,
-      resources: state.banker.resources
+      resources: state.banker.resources,
+      log: state.logger.log
     }
   },
   (dispatch) => {

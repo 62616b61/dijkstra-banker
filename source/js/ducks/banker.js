@@ -1,10 +1,14 @@
+import { addLogEntry } from './logger'
+
 const CREATE_PROCESS = 'banker/CREATE_PROCESS'
 const RESOLVE_PROCESS = 'banker/RESOLVE_PROCESS'
 const ALLOCATE_RESOURCES = 'banker/ALLOCATE_RESOURCES'
 
 export function Tick () {
   return (dispatch, getState) => {
-    dispatch(createProcess(8))
+    const newId = getState().banker.processes.lastId + 1
+    dispatch(createProcess(newId, 8))
+    dispatch(addLogEntry('Created new task ' + newId))
 
     const availRes = getState().banker.resources.available
     const currProcs = getState().banker.processes.current
@@ -18,9 +22,10 @@ export function Tick () {
   }
 }
 
-function createProcess (max) {
+function createProcess (id, max) {
   return {
     type: CREATE_PROCESS,
+    id,
     max
   }
 }
@@ -62,7 +67,7 @@ export default function bankerReducer (state = INITIAL_STATE, action) {
   switch (action.type) {
     case CREATE_PROCESS:
       state.processes.lastId++
-      state.processes.current.push({id: state.processes.lastId, max: action.max, alloc: 0, rem: action.max})
+      state.processes.current.push({id: action.id, max: action.max, alloc: 0, rem: action.max})
       return {
         ...state,
         processes: state.processes
