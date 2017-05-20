@@ -2,6 +2,13 @@ const CREATE_PROCESS = 'banker/CREATE_PROCESS'
 const RESOLVE_PROCESS = 'banker/RESOLVE_PROCESS'
 const ALLOCATE_RESOURCES = 'banker/ALLOCATE_RESOURCES'
 
+export function Tick () {
+  return (dispatch, getState) => {
+    const currentProcesses = getState().banker.processes.current
+    console.log(currentProcesses)
+  }
+}
+
 const INITIAL_STATE = {
   resources: {
     available: 10,
