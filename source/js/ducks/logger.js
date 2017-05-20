@@ -14,10 +14,12 @@ const INITIAL_STATE = {
 export default function loggerReducer (state = INITIAL_STATE, action) {
   switch (action.type) {
     case ADD_ENTRY:
-      state.log.push(action.text)
       return {
         ...state,
-        log: state.log
+        log: [
+          ...state.log,
+          action.text
+        ]
       }
     default:
       return state
