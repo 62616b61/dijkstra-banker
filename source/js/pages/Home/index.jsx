@@ -32,26 +32,28 @@ class Home extends React.Component {
 
   render () {
     return (
-      <Flex justify='center'>
-        <Box
-          col={2}
-          p={3}
-        >
-          <Timer />
-          <Resources resources={this.props.resources} />
-        </Box>
-        <Box
-          col={5}
-          p={3}
-        >
-          <Processes processes={this.props.processes} />
-        </Box>
-        <Box
-          col={5}
-          p={3}
-        >
-          <Log log={this.props.log} />
-        </Box>
+      <Flex justify='center' wrap>
+        <Flex col={8}>
+          <Box
+            col={2}
+            p={3}
+          >
+            <Timer />
+            <Resources resources={this.props.resources} />
+          </Box>
+          <Box
+            col={7}
+            p={3}
+          >
+            <Processes processes={this.props.processes} />
+          </Box>
+          <Box
+            col={3}
+            p={3}
+          >
+            <Log log={this.props.log} />
+          </Box>
+        </Flex>
       </Flex>
     )
   }
