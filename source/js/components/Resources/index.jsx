@@ -1,7 +1,7 @@
 import React from 'react'
-import { connect } from 'react-redux'
 
 const Resources = (props) => {
+  const {available, allocated} = props.resources
   return (
     <div>
       <h5>Resources</h5>
@@ -12,8 +12,8 @@ const Resources = (props) => {
             <th>Allocated</th>
           </tr>
           <tr>
-            <td>{props.available}</td>
-            <td>{props.allocated}</td>
+            <td>{available}</td>
+            <td>{allocated}</td>
           </tr>
         </tbody>
       </table>
@@ -21,11 +21,4 @@ const Resources = (props) => {
   )
 }
 
-export default connect(
-  (state) => {
-    return {
-      available: state.banker.resources.available,
-      allocated: state.banker.resources.allocated
-    }
-  }
-)(Resources)
+export default Resources

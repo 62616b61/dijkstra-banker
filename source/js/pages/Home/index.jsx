@@ -33,20 +33,20 @@ class Home extends React.Component {
     return (
       <Flex justify='center'>
         <Box
-          auto
-          p={3}
-        >
-          <Resources />
-          <Processes />
-        </Box>
-        <Box
-          auto
+          col={2}
           p={3}
         >
           <Timer />
+          <Resources resources={this.props.resources} />
         </Box>
         <Box
-          auto
+          col={5}
+          p={3}
+        >
+          <Processes processes={this.props.processes} />
+        </Box>
+        <Box
+          col={5}
           p={3}
         >
           Box auto
@@ -57,7 +57,12 @@ class Home extends React.Component {
 }
 
 export default connect(
-  () => ({}),
+  (state) => {
+    return {
+      processes: state.banker.processes,
+      resources: state.banker.resources
+    }
+  },
   (dispatch) => {
     return {
       TimerTick: () => dispatch(TimerTick()),
