@@ -12,12 +12,19 @@ export function Tick () {
 
     const availRes = getState().banker.resources.available
     const currProcs = getState().banker.processes.current
-    const minRemProc = currProcs.reduce((p, c) => (p.rem < c.rem) ? p : c)
 
-    if (minRemProc.rem === 0) {
-      dispatch(resolveProcess(minRemProc.id))
-    } else if (availRes > minRemProc.rem) {
-      dispatch(allocateResources(minRemProc.id, minRemProc.rem))
+    if (currProcs.length) {
+      const minRemProc = currProcs.reduce((p, c) => (p.rem < c.rem) ? p : c)
+
+      if (minRemProc.rem === 0) {
+        dispatch(resolveProcess(minRemProc.id))
+        dispatch(addLogEntry('Resolved process ' + minRemProc.id))
+      } else if (availRes > minRemProc.rem) {
+        dispatch(allocateResources(minRemProc.id, minRemProc.rem))
+        dispatch(addLogEntry('Allocated resources for process ' + minRemProc.id))
+      } else {
+        dispatch(addLogEntry('Deadlock'))
+      }
     }
   }
 }
