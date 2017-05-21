@@ -22,7 +22,7 @@ class Home extends React.Component {
     let timer = setInterval(() => {
       this.props.TimerTick()
       this.props.BankerTick()
-    }, 1000)
+    }, 100)
     this.setState({timer})
   }
 
