@@ -1,9 +1,13 @@
 const ADD_ENTRY = 'logger/ADD_ENTRY'
 
 export function addLogEntry (text) {
-  return {
-    type: ADD_ENTRY,
-    text
+  return (dispatch, getState) => {
+    const tick = getState().timer.ticks
+    dispatch({
+      type: ADD_ENTRY,
+      tick,
+      text
+    })
   }
 }
 
@@ -17,8 +21,8 @@ export default function loggerReducer (state = INITIAL_STATE, action) {
       return {
         ...state,
         log: [
-          ...state.log,
-          action.text
+          action.tick + ': ' + action.text,
+          ...state.log
         ]
       }
     default:
